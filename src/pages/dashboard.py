@@ -168,7 +168,8 @@ def show_tables():
         logs["timestamp"] = pd.to_datetime(logs["timestamp"])
         logs.groupby([logs["timestamp"].dt.date, 'action']).size().reset_index()
 
-        px.bar(logs, x="timestamp", y="action")
+        figure = px.bar(logs, x="timestamp", y="action" ,barmode="group", title="Activity per day")
+        st.plotly_chart(figure)
 
     # last synchronized
     last_sync_time = "{day}/{month}/{year} {hour}:{minute}:{second}".format(
