@@ -27,15 +27,13 @@ if st.button(":material/dashboard: Go to Dashboard", width="stretch"):
 
 st.subheader("This project features:")
 st.write(
-    """- Fernet Encryption & Decryption         
+"""- Fernet Encryption & Decryption         
 - Hashing
 - Masking
 - GDPR
 - Asking Consent
 - Date Retention Policy
-- Sqlite
 - Role-Based Access
-- Streamlit
 - Action Logging
 - Analytic Graph
 - Adding/Editing Patients
@@ -43,3 +41,9 @@ st.write(
 - Login/Logout
 """
 )
+
+st.subheader("Made using:")
+st.write("""
+- Streamlit
+- SQLite
+- Python""")
