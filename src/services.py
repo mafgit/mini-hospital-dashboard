@@ -90,8 +90,8 @@ def add_patient(added_by_user_id, added_by_role, name, contact, diagnosis):
     try:
         query = f"insert into patients (name, contact, diagnosis) values (?, ?, ?)"
         cursor.execute(query, (encrypt(name), encrypt(contact), diagnosis))
+        log_action(conn, cursor, added_by_user_id, added_by_role, action=ActionsEnum.ADD)
         conn.commit()
-        log_action(conn, cursor, added_by_user_id, added_by_role, "ADD")
         return True
     except Exception as e:
         print(e)
@@ -102,9 +102,9 @@ def add_patient(added_by_user_id, added_by_role, name, contact, diagnosis):
     return False
 
 
-def update_patient(anonymized_name, name, contact, diagnosis):
+def update_patient(updated_by_user_id, updated_by_role, anonymized_name, name, contact, diagnosis):
     conn, cursor = get_conn_and_cursor()
-
+    
     fields = []
     params = []
 
@@ -122,6 +122,7 @@ def update_patient(anonymized_name, name, contact, diagnosis):
     try:
         query = f"update patients set {", ".join(fields)} where anonymized_name = ?"
         cursor.execute(query, tuple(params))
+        log_action(conn, cursor, updated_by_user_id, updated_by_role, action=ActionsEnum.UPDATE, details=f"Updated {len(params)} fields")
         conn.commit()
         return True
     except Exception as e:

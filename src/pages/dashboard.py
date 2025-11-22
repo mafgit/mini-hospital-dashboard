@@ -116,7 +116,7 @@ if role == "receptionist" or role == "admin":
             if error:
                 st.error(error)
             else:
-                if update_patient(anonymized_name, name, contact, diagnosis):
+                if update_patient(user_id, role, anonymized_name, name, contact, diagnosis):
                     edit_form.success("Patient updated successfully!")
                 else:
                     edit_form.error("There was an error updating the patient.")
